@@ -1,5 +1,6 @@
 import { Link, Form, useActionData, ActionFunctionArgs } from "react-router-dom"
 import { ErrorMessage } from "../components/ErrorMessage"
+import { addProduct } from "../services/ProductService"
 
 export const action = async ({request} : ActionFunctionArgs) => {
     const data = Object.fromEntries(await request.formData())  // Obtener los datos del Formulario
@@ -9,11 +10,13 @@ export const action = async ({request} : ActionFunctionArgs) => {
     if(Object.values(data).includes('')){
         error = 'Todos los Campos son Obligatorios'
     }
-
+    // Si hay errores de Validación
     if(error.length){
         return error
     }
-    
+
+    addProduct(data)
+
     return {}
 }
 
