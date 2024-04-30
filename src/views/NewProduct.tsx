@@ -1,21 +1,44 @@
-import { Link } from "react-router-dom"
+import { Link, Form, useActionData, ActionFunctionArgs } from "react-router-dom"
+import { ErrorMessage } from "../components/ErrorMessage"
+
+export const action = async ({request} : ActionFunctionArgs) => {
+    const data = Object.fromEntries(await request.formData())  // Obtener los datos del Formulario
+
+    let error = ''
+
+    if(Object.values(data).includes('')){
+        error = 'Todos los Campos son Obligatorios'
+    }
+
+    if(error.length){
+        return error
+    }
+    
+    return {}
+}
+
 
 
 export const NewProduct = () => {
+
+    const error = useActionData() as string
+ 
   return (
     <>
-        <div className="flex justify-between">
-            <h2 className="text-4xl font-black text-slate-500">New Product</h2>
+        <div className="flex flex-col md:flex-row md:justify-between">
+            <h2 className="text-center md:text-left text-4xl font-black text-slate-500">New Product</h2>
             <Link
                 to="/"
-                className="text-white uppercase rounded-md bg-slate-500 p-2 text-sm font-bold shadow-sm hover:bg-slate-600"
+                className="text-center mt-3 text-white uppercase rounded-md bg-slate-500 p-2 text-sm font-bold shadow-sm hover:bg-slate-600"
             >
                 Registrar Producto
             </Link>
         </div>
 
-        <form
-            className="mt-10"      
+        { error && <ErrorMessage>{error}</ErrorMessage>}
+        <Form
+            className="mt-10"  
+            method='POST'    
         >
         
             <div className="mb-4">
@@ -49,7 +72,7 @@ export const NewProduct = () => {
             className="mt-5 w-full bg-indigo-600 p-2 text-white font-bold text-lg cursor-pointer rounded"
             value="Registrar Producto"
             />
-        </form>
+        </Form>
 
     </>
 
