@@ -36,7 +36,7 @@ const availabilityOptions = [
     { name: 'No Disponible', value: false}
 ]
 
-export default function EditProduct() {
+export default function EditProduct() { 
     const product = useLoaderData() as Product
     const error = useActionData() as string
 

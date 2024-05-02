@@ -7,6 +7,10 @@ type ProductDetailsProps = {
     product: Product
 }
 
+export async function loader() {
+    
+}
+
 export async function action({params} : ActionFunctionArgs) {
     if(params.id !== undefined) {
         await deleteProduct(+params.id)
@@ -34,7 +38,7 @@ export default function ProductDetails({product} : ProductDetailsProps) {
                         type='submit'
                         name='id'
                         value={product.id}
-                        className={`${isAvailable ? 'text-black' : 'text-red-600'} rounded-lg p-2 text-xs uppercase font-bold w-full border border-black-100 hover:cursor-pointer`}
+                        className={`${isAvailable ? 'text-green-600 border-green-600' : 'text-red-600 border-red-600'} rounded-lg p-2 text-xs uppercase font-bold w-full border border-black-100 hover:cursor-pointer`}
                     >
                         {isAvailable ? 'Disponible' : 'No Disponible'}
                     </button>
